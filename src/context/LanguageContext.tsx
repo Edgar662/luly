@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { translations, type Language, type Translations } from "../i18n/translations";
 
-// Language switcher is temporary, for reviewing both versions during
-// development. The final site ships English-only (see project notes).
-export const LANGUAGE_SWITCH_ENABLED = true;
+// Language switcher was only for reviewing both versions during
+// development. Final site ships English-only.
+export const LANGUAGE_SWITCH_ENABLED = false;
 const DEFAULT_LANGUAGE: Language = "en";
 const STORAGE_KEY = "kp-comm-language";
 

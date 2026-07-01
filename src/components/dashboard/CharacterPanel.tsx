@@ -1,9 +1,14 @@
+import { AnimatePresence, motion } from "framer-motion";
 import kimDesconhecida from "../../assets/characters/kim-desconhecida.png";
+import kimCompleta from "../../assets/characters/kim-completa.png";
 import { useLanguage } from "../../context/LanguageContext";
+import { useMissions } from "../../context/MissionContext";
 import CornerBrackets from "../CornerBrackets";
 
 export default function CharacterPanel() {
   const { t } = useLanguage();
+  const { isMissionCompleted } = useMissions();
+  const revealed = isMissionCompleted(1);
 
   return (
     <div className="relative flex items-end justify-center overflow-hidden rounded-2xl border border-kp-border bg-kp-panel-light px-4 pt-4">
@@ -24,12 +29,19 @@ export default function CharacterPanel() {
         }}
       />
 
-      <img
-        src={kimDesconhecida}
-        alt="Agent Kim"
-        className="relative z-[1] max-h-[420px] w-auto select-none object-contain"
-        draggable={false}
-      />
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={revealed ? "revealed" : "unknown"}
+          src={revealed ? kimCompleta : kimDesconhecida}
+          alt="Agent Kim"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative z-[1] max-h-[420px] w-auto select-none object-contain"
+          draggable={false}
+        />
+      </AnimatePresence>
 
       <div className="absolute bottom-4 left-4 z-10 -rotate-3 rounded-sm bg-[#e8de9c] px-4 py-3 shadow-lg">
         <p className="font-display text-[11px] uppercase tracking-widest text-kp-bg/70">
