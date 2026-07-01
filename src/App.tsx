@@ -6,6 +6,11 @@ import NameEntry from "./pages/NameEntry";
 import Dashboard from "./pages/Dashboard";
 import Briefing from "./pages/Briefing";
 import MissionQuiz from "./pages/MissionQuiz";
+import MissionsList from "./pages/MissionsList";
+import Dossier from "./pages/Dossier";
+import Files from "./pages/Files";
+import Communications from "./pages/Communications";
+import Achievements from "./pages/Achievements";
 import { useAgent } from "./context/AgentContext";
 
 function RequireAgent({ children }: { children: ReactNode }) {
@@ -52,6 +57,46 @@ export default function App() {
               element={
                 <RequireAgent>
                   <MissionQuiz />
+                </RequireAgent>
+              }
+            />
+            <Route
+              path="/missions"
+              element={
+                <RequireAgent>
+                  <MissionsList />
+                </RequireAgent>
+              }
+            />
+            <Route
+              path="/dossier"
+              element={
+                <RequireAgent>
+                  <Dossier />
+                </RequireAgent>
+              }
+            />
+            <Route
+              path="/files"
+              element={
+                <RequireAgent>
+                  <Files />
+                </RequireAgent>
+              }
+            />
+            <Route
+              path="/comms"
+              element={
+                <RequireAgent>
+                  <Communications />
+                </RequireAgent>
+              }
+            />
+            <Route
+              path="/achievements"
+              element={
+                <RequireAgent>
+                  <Achievements />
                 </RequireAgent>
               }
             />

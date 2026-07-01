@@ -1,4 +1,7 @@
 export interface Translations {
+  common: {
+    backToDashboard: string;
+  };
   boot: { lines: string[] };
   nameEntry: {
     missionBadge: string;
@@ -60,10 +63,38 @@ export interface Translations {
     missions: { title: string; activeSuffix: string };
     dossier: { title: string; status: string };
     files: { title: string; status: string };
-    achievements: { title: string; status: string };
+    achievements: { title: string; suffix: string };
     comms: { title: string; status: string };
     lockedLabel: string;
     lockedHint: string;
+  };
+  missionsPage: {
+    title: string;
+    subtitle: string;
+    statusCompleted: string;
+    statusAvailable: string;
+    startButton: string;
+  };
+  dossierPage: {
+    title: string;
+    subtitle: string;
+    identifiedStatus: string;
+    anonymousStatus: string;
+  };
+  filesPage: {
+    title: string;
+    subtitle: string;
+    emptyState: string;
+    classifiedCaption: string;
+  };
+  commsPage: {
+    title: string;
+    subtitle: string;
+    emptyState: string;
+  };
+  achievementsPage: {
+    title: string;
+    subtitle: string;
   };
   character: {
     liveFeed: string;
@@ -78,6 +109,9 @@ export interface Translations {
 
 export const translations: Record<"en" | "pt", Translations> = {
   en: {
+    common: {
+      backToDashboard: "BACK TO DASHBOARD",
+    },
     boot: {
       lines: [
         "KP SYSTEMS BIOS v2.0",
@@ -171,10 +205,38 @@ export const translations: Record<"en" | "pt", Translations> = {
       missions: { title: "MISSIONS", activeSuffix: "ACTIVE MISSIONS" },
       dossier: { title: "DOSSIER", status: "PROFILE INCOMPLETE" },
       files: { title: "FILES", status: "0 FILES" },
-      achievements: { title: "ACHIEVEMENTS", status: "0/20 ACHIEVEMENTS" },
+      achievements: { title: "ACHIEVEMENTS", suffix: "ACHIEVEMENTS" },
       comms: { title: "TRANSMISSIONS", status: "0 NEW MESSAGES" },
       lockedLabel: "LOCKED",
       lockedHint: "Unlocks after Mission {id}",
+    },
+    missionsPage: {
+      title: "MISSION LOG",
+      subtitle: "Every operation assigned to you so far.",
+      statusCompleted: "COMPLETED",
+      statusAvailable: "AVAILABLE",
+      startButton: "START",
+    },
+    dossierPage: {
+      title: "AGENT DOSSIER",
+      subtitle: "Everything the system has on file for you.",
+      identifiedStatus: "IDENTIFIED",
+      anonymousStatus: "ANONYMOUS",
+    },
+    filesPage: {
+      title: "CASE FILES",
+      subtitle: "Photographic evidence collected during your missions.",
+      emptyState: "No files collected yet. Complete a mission to unlock evidence.",
+      classifiedCaption: "CLASSIFIED",
+    },
+    commsPage: {
+      title: "TRANSMISSIONS LOG",
+      subtitle: "Every message Command has sent you.",
+      emptyState: "No transmissions received yet.",
+    },
+    achievementsPage: {
+      title: "ACHIEVEMENTS",
+      subtitle: "Badges earned in the field.",
     },
     character: {
       liveFeed: "Live Feed",
@@ -187,6 +249,9 @@ export const translations: Record<"en" | "pt", Translations> = {
     },
   },
   pt: {
+    common: {
+      backToDashboard: "VOLTAR PARA O PAINEL",
+    },
     boot: {
       lines: [
         "KP SYSTEMS BIOS v2.0",
@@ -280,10 +345,38 @@ export const translations: Record<"en" | "pt", Translations> = {
       missions: { title: "MISSÕES", activeSuffix: "MISSÕES ATIVAS" },
       dossier: { title: "DOSSIÊ", status: "PERFIL INCOMPLETO" },
       files: { title: "ARQUIVOS", status: "0 ARQUIVOS" },
-      achievements: { title: "CONQUISTAS", status: "0/20 CONQUISTAS" },
+      achievements: { title: "CONQUISTAS", suffix: "CONQUISTAS" },
       comms: { title: "COMUNICADOS", status: "0 NOVAS MENSAGENS" },
       lockedLabel: "BLOQUEADO",
       lockedHint: "Libera após a Missão {id}",
+    },
+    missionsPage: {
+      title: "REGISTRO DE MISSÕES",
+      subtitle: "Todas as operações atribuídas a você até agora.",
+      statusCompleted: "CONCLUÍDA",
+      statusAvailable: "DISPONÍVEL",
+      startButton: "INICIAR",
+    },
+    dossierPage: {
+      title: "DOSSIÊ DA AGENTE",
+      subtitle: "Tudo que o sistema tem registrado sobre você.",
+      identifiedStatus: "IDENTIFICADA",
+      anonymousStatus: "ANÔNIMA",
+    },
+    filesPage: {
+      title: "ARQUIVOS DO CASO",
+      subtitle: "Evidências fotográficas coletadas durante suas missões.",
+      emptyState: "Nenhum arquivo coletado ainda. Complete uma missão pra desbloquear evidências.",
+      classifiedCaption: "CLASSIFICADO",
+    },
+    commsPage: {
+      title: "REGISTRO DE TRANSMISSÕES",
+      subtitle: "Toda mensagem que o Comando já te enviou.",
+      emptyState: "Nenhuma transmissão recebida ainda.",
+    },
+    achievementsPage: {
+      title: "CONQUISTAS",
+      subtitle: "Emblemas conquistados em campo.",
     },
     character: {
       liveFeed: "Live Feed",

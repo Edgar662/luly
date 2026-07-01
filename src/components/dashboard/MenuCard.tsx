@@ -10,6 +10,7 @@ interface MenuCardProps {
   locked: boolean;
   lockedLabel: string;
   lockedHint: string;
+  onClick?: () => void;
 }
 
 export default function MenuCard({
@@ -20,11 +21,13 @@ export default function MenuCard({
   locked,
   lockedLabel,
   lockedHint,
+  onClick,
 }: MenuCardProps) {
   const scrambledTitle = useScrambleText(8, 90);
 
   return (
     <button
+      onClick={onClick}
       disabled={locked}
       className={`group flex flex-col items-center rounded-2xl border p-5 text-center transition ${
         locked
