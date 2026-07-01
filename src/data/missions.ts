@@ -208,16 +208,16 @@ export const missions: Record<number, MissionData> = {
           en: "Command sends short bursts sometimes. Simple shift cipher — each letter moved forward by 3.",
           pt: "Às vezes o Comando manda mensagens curtas. Cifra simples — cada letra deslocada 3 posições.",
         },
-        message: { en: "YOU ARE DOING GREAT", pt: "VOCE ESTA INDO MUITO BEM" },
+        message: { en: "CUTE CUTE DRINK YOUR WATER", pt: "CUTE CUTE BEBE AGUA" },
         shift: 3,
         placeholder: { en: "Type the decoded message...", pt: "Digite a mensagem decifrada..." },
         successReaction: {
-          en: "Decrypted perfectly. Your cryptography skills are noted.",
-          pt: "Decifrado perfeitamente. Suas habilidades de criptografia foram registradas.",
+          en: "Decrypted perfectly. Now go drink some water — Command's orders.",
+          pt: "Decifrado perfeitamente. Agora vai beber água — ordens do Comando.",
         },
         failReaction: {
-          en: "Close enough. Command reveals it anyway.",
-          pt: "Chegou perto. O Comando revela mesmo assim.",
+          en: "Close enough. Command reveals it anyway: go drink some water.",
+          pt: "Chegou perto. O Comando revela mesmo assim: vai beber água.",
         },
       },
       {
@@ -273,35 +273,32 @@ export const missions: Record<number, MissionData> = {
         id: "q6",
         type: "choice",
         prompt: {
-          en: "Pick your mission soundtrack:",
-          pt: "Escolha a trilha sonora da sua missão:",
+          en: "Quick file check — which flower does Command have on record as your favorite?",
+          pt: "Checagem rápida de arquivo — qual flor está registrada como sua favorita?",
         },
         options: [
           {
             id: "a",
-            text: { en: "Something epic and orchestral", pt: "Algo épico e orquestral" },
-            reaction: { en: "A blockbuster in the making.", pt: "Um blockbuster em construção." },
+            text: { en: "White tulips", pt: "Tulipas brancas" },
+            reaction: {
+              en: "Correct. Filed as #1 — red roses are a close second, though.",
+              pt: "Correto. Registrada como #1 — rosas vermelhas ficam em segundo, bem pertinho.",
+            },
           },
           {
             id: "b",
-            text: { en: "A pop bop", pt: "Um pop cativante" },
-            reaction: { en: "Villains hate this one trick.", pt: "Os vilões odeiam esse truque." },
+            text: { en: "Red roses", pt: "Rosas vermelhas" },
+            reaction: { en: "Close. That's the #2 pick, not #1.", pt: "Quase. Essa é a #2, não a #1." },
           },
           {
             id: "c",
-            text: {
-              en: "Lo-fi to stay calm under pressure",
-              pt: "Lo-fi pra manter a calma sob pressão",
-            },
-            reaction: { en: "Zen agent, noted.", pt: "Agente zen, anotado." },
+            text: { en: "Sunflowers", pt: "Girassóis" },
+            reaction: { en: "Nice guess, wrong bouquet.", pt: "Bom chute, buquê errado." },
           },
           {
             id: "d",
-            text: {
-              en: "Whatever's stuck in my head right now",
-              pt: "O que estiver preso na minha cabeça agora",
-            },
-            reaction: { en: "Chaotic, but valid.", pt: "Caótico, mas válido." },
+            text: { en: "Orchids", pt: "Orquídeas" },
+            reaction: { en: "Fancy, but not quite.", pt: "Chique, mas não é essa." },
           },
         ],
       },
@@ -315,22 +312,22 @@ export const missions: Record<number, MissionData> = {
         statements: [
           {
             text: {
-              en: "I've watched Kim Possible unironically as an adult.",
-              pt: "Já assisti Kim Possible sem nenhuma vergonha, já adulto.",
+              en: "Hazelnut milk chocolate is your favorite.",
+              pt: "Chocolate de leite de avelã é seu favorito.",
             },
             isLie: false,
           },
           {
             text: {
-              en: "I once finished a video game in one sitting, no sleep.",
-              pt: "Uma vez terminei um jogo de uma sentada só, sem dormir.",
+              en: "He's never seen you in person — just heard that you're beautiful.",
+              pt: "Ele nunca te viu pessoalmente — só ouviu dizer que você é linda.",
             },
             isLie: false,
           },
           {
             text: {
-              en: "I've never lost a game of rock-paper-scissors.",
-              pt: "Nunca perdi uma partida de pedra-papel-tesoura.",
+              en: "Your favorite color is blue.",
+              pt: "Sua cor favorita é azul.",
             },
             isLie: true,
           },
@@ -340,8 +337,8 @@ export const missions: Record<number, MissionData> = {
           pt: "Correto. Essa realmente foi inventada.",
         },
         wrongReaction: {
-          en: "Actually, the lie was the rock-paper-scissors one.",
-          pt: "Na verdade, a mentira era a de pedra-papel-tesoura.",
+          en: "Actually, the lie was the one about your favorite color.",
+          pt: "Na verdade, a mentira era sobre sua cor favorita.",
         },
       },
       {
@@ -469,17 +466,17 @@ export const missions: Record<number, MissionData> = {
         id: "q13",
         type: "slider",
         prompt: {
-          en: "Guess: how many hours of sleep did Command get last night?",
-          pt: "Adivinha: quantas horas o Comando dormiu ontem à noite?",
+          en: "On a scale of 1 to 10 — how stubborn does Command's file say you are?",
+          pt: "Numa escala de 1 a 10 — o quão teimosa o arquivo do Comando diz que você é?",
         },
-        min: 0,
-        max: 12,
+        min: 1,
+        max: 10,
         step: 1,
-        unit: { en: "hours", pt: "horas" },
-        answer: 5,
-        tolerance: 1,
-        reactionClose: { en: "Scary accurate.", pt: "Assustadoramente preciso." },
-        reactionFar: { en: "Not even close, but nice try.", pt: "Nem perto, mas boa tentativa." },
+        unit: { en: "/10", pt: "/10" },
+        answer: 10,
+        tolerance: 3,
+        reactionClose: { en: "Scary self-aware.", pt: "Assustadoramente autoconsciente." },
+        reactionFar: { en: "The file says it's higher than that. Way higher.", pt: "O arquivo diz que é mais alto que isso. Bem mais." },
       },
       {
         id: "q14",
@@ -579,35 +576,35 @@ export const missions: Record<number, MissionData> = {
         id: "q18",
         type: "choice",
         prompt: {
-          en: "Pick a fear to conquer on this mission:",
-          pt: "Escolha um medo pra superar nessa missão:",
+          en: "She once said she threw the key to her heart into the deepest part of the ocean. What did he say back?",
+          pt: "Ela disse uma vez que jogou a chave do coração dela no fundo do mar mais profundo. O que ele respondeu?",
         },
         options: [
           {
             id: "a",
-            text: { en: "Heights", pt: "Altura" },
-            reaction: { en: "Brave. There's a rope waiting for you.", pt: "Corajoso. Tem uma corda te esperando." },
+            text: {
+              en: "\"That's why I bought a submarine.\"",
+              pt: "\"Quer por isso que eu comprei um submarino.\"",
+            },
+            reaction: {
+              en: "Correct. Command still hasn't found the key, but the submarine was a solid start.",
+              pt: "Correto. O Comando ainda não achou a chave, mas o submarino foi um bom começo.",
+            },
           },
           {
             id: "b",
-            text: { en: "Spiders", pt: "Aranhas" },
-            reaction: {
-              en: "Understandable. They're not on this mission, promise.",
-              pt: "Entendível. Elas não estão nessa missão, prometo.",
-            },
+            text: { en: "\"I'll just learn to breathe underwater.\"", pt: "\"Vou aprender a respirar debaixo d'água.\"" },
+            reaction: { en: "Ambitious, but that's not the plan.", pt: "Ambicioso, mas não foi esse o plano." },
           },
           {
             id: "c",
-            text: { en: "Public speaking", pt: "Falar em público" },
-            reaction: {
-              en: "The debrief with Command counts as practice.",
-              pt: "O relatório pro Comando já conta como treino.",
-            },
+            text: { en: "\"Finders keepers, I guess.\"", pt: "\"Achado não é roubado, então.\"" },
+            reaction: { en: "Cute guess, wrong answer.", pt: "Chute fofo, resposta errada." },
           },
           {
             id: "d",
-            text: { en: "Running out of phone battery", pt: "Ficar sem bateria no celular" },
-            reaction: { en: "The real final boss.", pt: "O verdadeiro chefão final." },
+            text: { en: "\"Guess I'll give up looking.\"", pt: "\"Acho que vou desistir de procurar.\"" },
+            reaction: { en: "Never. He's still looking.", pt: "Nunca. Ele ainda procura." },
           },
         ],
       },
@@ -741,17 +738,17 @@ export const missions: Record<number, MissionData> = {
           pt: "Uma última fechadura entre você e o relatório da missão. O Comando deixou uma pista.",
         },
         hint: {
-          en: "Hint: it's 0000 — Command isn't very creative with default codes.",
-          pt: "Dica: é 0000 — o Comando não é muito criativo com códigos padrão.",
+          en: "Hint: day and month of the day that made September worth circling on the calendar.",
+          pt: "Dica: dia e mês da data que fez setembro valer a pena marcar no calendário.",
         },
-        code: "0000",
+        code: "0409",
         successReaction: {
-          en: "Access granted. Of course it was that easy.",
-          pt: "Acesso concedido. Claro que era fácil assim.",
+          en: "Access granted. Of course you knew that one.",
+          pt: "Acesso concedido. Claro que você sabia essa.",
         },
         wrongReaction: {
-          en: "The code was 0000, by the way. Command really needs better security.",
-          pt: "O código era 0000, aliás. O Comando realmente precisa de mais segurança.",
+          en: "The code was 0409, by the way. Your birthday. Command should really change that password.",
+          pt: "O código era 0409, aliás. Seu aniversário. O Comando devia trocar essa senha.",
         },
       },
       {
