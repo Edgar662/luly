@@ -208,7 +208,7 @@ export const missions: Record<number, MissionData> = {
           en: "Command sends short bursts sometimes. Simple shift cipher — each letter moved forward by 3.",
           pt: "Às vezes o Comando manda mensagens curtas. Cifra simples — cada letra deslocada 3 posições.",
         },
-        message: { en: "CUTE CUTE DRINK YOUR WATER", pt: "CUTE CUTE BEBE AGUA" },
+        message: { en: "CUTE CUTE BEBA AGUA", pt: "CUTE CUTE BEBA AGUA" },
         shift: 3,
         placeholder: { en: "Type the decoded message...", pt: "Digite a mensagem decifrada..." },
         successReaction: {
