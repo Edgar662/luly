@@ -3,7 +3,7 @@ import { translations, type Language, type Translations } from "../i18n/translat
 
 // Language switcher was only for reviewing both versions during
 // development. Final site ships English-only.
-export const LANGUAGE_SWITCH_ENABLED = false;
+export const LANGUAGE_SWITCH_ENABLED = true;
 const DEFAULT_LANGUAGE: Language = "en";
 const STORAGE_KEY = "kp-comm-language";
 
