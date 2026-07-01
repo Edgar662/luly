@@ -312,10 +312,10 @@ export const missions: Record<number, MissionData> = {
         statements: [
           {
             text: {
-              en: "Hazelnut milk chocolate is your favorite.",
-              pt: "Chocolate de leite de avelã é seu favorito.",
+              en: "She can solve a Rubik's cube in under a minute.",
+              pt: "Ela resolve um cubo mágico em menos de um minuto.",
             },
-            isLie: false,
+            isLie: true,
           },
           {
             text: {
@@ -329,7 +329,7 @@ export const missions: Record<number, MissionData> = {
               en: "Your favorite color is blue.",
               pt: "Sua cor favorita é azul.",
             },
-            isLie: true,
+            isLie: false,
           },
         ],
         correctReaction: {
@@ -337,8 +337,8 @@ export const missions: Record<number, MissionData> = {
           pt: "Correto. Essa realmente foi inventada.",
         },
         wrongReaction: {
-          en: "Actually, the lie was the one about your favorite color.",
-          pt: "Na verdade, a mentira era sobre sua cor favorita.",
+          en: "Actually, the lie was the Rubik's cube one.",
+          pt: "Na verdade, a mentira era a do cubo mágico.",
         },
       },
       {
