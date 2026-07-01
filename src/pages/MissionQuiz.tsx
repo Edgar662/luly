@@ -8,6 +8,14 @@ import { missions } from "../data/missions";
 import LanguageToggle from "../components/LanguageToggle";
 import CornerBrackets from "../components/CornerBrackets";
 import { logMissionComplete, logQuizAnswer } from "../lib/logger";
+import ChoiceQuestionCard from "../components/quiz/ChoiceQuestionCard";
+import TextQuestionCard from "../components/quiz/TextQuestionCard";
+import CipherQuestionCard from "../components/quiz/CipherQuestionCard";
+import TwoTruthsOneLieCard from "../components/quiz/TwoTruthsOneLieCard";
+import MatchPairsCard from "../components/quiz/MatchPairsCard";
+import SliderGuessCard from "../components/quiz/SliderGuessCard";
+import TimedChallengeCard from "../components/quiz/TimedChallengeCard";
+import SafeCodeCard from "../components/quiz/SafeCodeCard";
 
 export default function MissionQuiz() {
   const { missionId } = useParams();
@@ -17,38 +25,20 @@ export default function MissionQuiz() {
   const mission = missions[Number(missionId)] ?? missions[1];
 
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
-  const [textAnswer, setTextAnswer] = useState("");
-  const [textSubmitted, setTextSubmitted] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [answerState, setAnswerState] = useState<{ log: string; reaction: string } | null>(null);
 
   const question = mission.questions[questionIndex];
   const isLast = questionIndex === mission.questions.length - 1;
   const progressPercent = ((questionIndex + 1) / mission.questions.length) * 100;
 
-  const selectedOption =
-    question.type === "choice"
-      ? (question.options.find((o) => o.id === selectedOptionId) ?? null)
-      : null;
-  const hasAnswered = question.type === "choice" ? Boolean(selectedOption) : textSubmitted;
-  const currentReaction =
-    question.type === "choice" ? selectedOption?.reaction[language] : question.reaction[language];
-
-  const handleSelectOption = (optionId: string) => {
-    if (question.type !== "choice") return;
-    setSelectedOptionId(optionId);
-  };
-
-  const handleSubmitText = () => {
-    if (question.type !== "text" || !textAnswer.trim() || textSubmitted) return;
-    setTextSubmitted(true);
+  const handleAnswered = (log: string, reaction: string) => {
+    setAnswerState({ log, reaction });
   };
 
   const handleNext = () => {
-    if (question.type === "choice" && selectedOption) {
-      logQuizAnswer(mission.id, question.prompt[language], selectedOption.text[language]);
-    } else if (question.type === "text" && textAnswer.trim()) {
-      logQuizAnswer(mission.id, question.prompt[language], textAnswer.trim());
+    if (answerState) {
+      logQuizAnswer(mission.id, question.prompt[language], answerState.log);
     }
 
     if (isLast) {
@@ -58,9 +48,7 @@ export default function MissionQuiz() {
       return;
     }
     setQuestionIndex((i) => i + 1);
-    setSelectedOptionId(null);
-    setTextAnswer("");
-    setTextSubmitted(false);
+    setAnswerState(null);
   };
 
   if (finished) {
@@ -141,61 +129,87 @@ export default function MissionQuiz() {
               {question.prompt[language]}
             </h2>
 
-            {question.type === "choice" ? (
-              <div className="mt-5 flex flex-col gap-3">
-                {question.options.map((option) => {
-                  const isSelected = option.id === selectedOptionId;
-                  return (
-                    <button
-                      key={option.id}
-                      onClick={() => handleSelectOption(option.id)}
-                      className={`rounded-lg border px-4 py-3 text-left text-sm transition ${
-                        isSelected
-                          ? "border-kp-green bg-kp-green/10 text-white"
-                          : "border-kp-border text-kp-text hover:border-kp-green/50"
-                      }`}
-                    >
-                      {option.text[language]}
-                    </button>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="mt-5">
-                <textarea
-                  value={textAnswer}
-                  onChange={(e) => setTextAnswer(e.target.value)}
-                  placeholder={question.placeholder[language]}
-                  disabled={textSubmitted}
-                  rows={3}
-                  className="w-full resize-none rounded-lg border border-kp-border bg-kp-panel-light px-4 py-3 text-sm text-white outline-none placeholder:text-kp-muted focus:border-kp-green disabled:opacity-60"
+            <div className="mt-5">
+              {question.type === "choice" && (
+                <ChoiceQuestionCard
+                  key={question.id}
+                  question={question}
+                  language={language}
+                  onAnswered={handleAnswered}
                 />
-                {!textSubmitted && (
-                  <button
-                    onClick={handleSubmitText}
-                    disabled={!textAnswer.trim()}
-                    className="font-display mt-3 rounded-lg border border-kp-green/50 px-4 py-2 text-xs font-semibold tracking-wide text-kp-green transition hover:bg-kp-green/10 disabled:cursor-not-allowed disabled:opacity-40"
-                  >
-                    {t.mission.submitButton}
-                  </button>
-                )}
-              </div>
-            )}
+              )}
+              {question.type === "text" && (
+                <TextQuestionCard
+                  key={question.id}
+                  question={question}
+                  language={language}
+                  onAnswered={handleAnswered}
+                />
+              )}
+              {question.type === "cipher" && (
+                <CipherQuestionCard
+                  key={question.id}
+                  question={question}
+                  language={language}
+                  onAnswered={handleAnswered}
+                />
+              )}
+              {question.type === "twoTruthsOneLie" && (
+                <TwoTruthsOneLieCard
+                  key={question.id}
+                  question={question}
+                  language={language}
+                  onAnswered={handleAnswered}
+                />
+              )}
+              {question.type === "matchPairs" && (
+                <MatchPairsCard
+                  key={question.id}
+                  question={question}
+                  language={language}
+                  onAnswered={handleAnswered}
+                />
+              )}
+              {question.type === "slider" && (
+                <SliderGuessCard
+                  key={question.id}
+                  question={question}
+                  language={language}
+                  onAnswered={handleAnswered}
+                />
+              )}
+              {question.type === "timedChallenge" && (
+                <TimedChallengeCard
+                  key={question.id}
+                  question={question}
+                  language={language}
+                  onAnswered={handleAnswered}
+                />
+              )}
+              {question.type === "safe" && (
+                <SafeCodeCard
+                  key={question.id}
+                  question={question}
+                  language={language}
+                  onAnswered={handleAnswered}
+                />
+              )}
+            </div>
 
             <AnimatePresence mode="wait">
-              {hasAnswered && currentReaction && (
+              {answerState && (
                 <motion.p
                   key={question.id}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="mt-4 rounded-lg border border-kp-border bg-kp-panel-light px-4 py-3 text-sm italic text-kp-green"
                 >
-                  {currentReaction}
+                  {answerState.reaction}
                 </motion.p>
               )}
             </AnimatePresence>
 
-            {hasAnswered && (
+            {answerState && (
               <button
                 onClick={handleNext}
                 className="font-display mt-5 flex items-center gap-2 rounded-lg bg-kp-green px-5 py-3 text-sm font-semibold tracking-wide text-kp-bg transition hover:bg-kp-green-bright"

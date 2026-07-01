@@ -50,6 +50,9 @@ export interface Translations {
     completeTitle: string;
     completeBody: string;
     backButton: string;
+    lockInButton: string;
+    sliderRevealPrefix: string;
+    unlockButton: string;
   };
   profile: {
     title: string;
@@ -192,6 +195,9 @@ export const translations: Record<"en" | "pt", Translations> = {
       completeTitle: "MISSION COMPLETE",
       completeBody: "Data logged. Command is calibrating your profile as we speak.",
       backButton: "RETURN TO BASE",
+      lockInButton: "LOCK IN GUESS",
+      sliderRevealPrefix: "Actual answer:",
+      unlockButton: "UNLOCK",
     },
     profile: {
       title: "AGENT PROFILE",
@@ -332,6 +338,9 @@ export const translations: Record<"en" | "pt", Translations> = {
       completeTitle: "MISSÃO CONCLUÍDA",
       completeBody: "Dados registrados. O Comando já está calibrando seu perfil.",
       backButton: "VOLTAR PARA A BASE",
+      lockInButton: "CONFIRMAR PALPITE",
+      sliderRevealPrefix: "Resposta real:",
+      unlockButton: "DESTRAVAR",
     },
     profile: {
       title: "PERFIL DA AGENTE",
