@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 type Lang = "en" | "pt";
 
 type Step =
-  | { type: "text"; text: string }
+  | { type: "text"; text: string; emphasize?: boolean }
   | { type: "card"; icon: string; title: string; lines: string[] };
 
 const CONTENT: Record<
@@ -57,6 +57,13 @@ const CONTENT: Record<
         type: "text",
         text: "Go lie down, watch that dumb show — and call me if you need me, I'm right here.",
       },
+      { type: "text", text: "If I were there right now... 🫶" },
+      { type: "text", text: "I'd probably just sit next to you." },
+      { type: "text", text: "I'd ask if you wanted to talk, or just wanted quiet." },
+      { type: "text", text: "If you said no, I'd stay anyway." },
+      { type: "text", text: "I'd get you something you like, without even asking." },
+      { type: "text", text: "And eventually..." },
+      { type: "text", text: "I'd just hug you. 🤍", emphasize: true },
     ],
     continueMid: "continue →",
     continueLast: "continue 🌸",
@@ -101,6 +108,13 @@ const CONTENT: Record<
         type: "text",
         text: "Vai lá, deita, assiste aquela série boba — e me chama se precisar de mim, tô aqui.",
       },
+      { type: "text", text: "Se eu estivesse aí agora... 🫶" },
+      { type: "text", text: "Eu provavelmente sentaria do seu lado." },
+      { type: "text", text: "Perguntaria se você quer conversar, ou só ficar em silêncio." },
+      { type: "text", text: "Se você dissesse que não, eu ficaria do mesmo jeito." },
+      { type: "text", text: "Traria algo que você gosta, sem nem precisar perguntar." },
+      { type: "text", text: "E no fim..." },
+      { type: "text", text: "Eu só te abraçaria. 🤍", emphasize: true },
     ],
     continueMid: "continuar →",
     continueLast: "continuar 🌸",
@@ -258,8 +272,15 @@ export default function LoveLetter() {
                   >
                     {step.type === "text" ? (
                       <p
-                        className="text-2xl sm:text-[1.75rem] leading-snug"
-                        style={{ fontFamily: "var(--font-cute-hand)", color: "var(--color-love-heading)" }}
+                        className={
+                          step.emphasize
+                            ? "text-3xl sm:text-4xl leading-snug"
+                            : "text-2xl sm:text-[1.75rem] leading-snug"
+                        }
+                        style={{
+                          fontFamily: "var(--font-cute-hand)",
+                          color: step.emphasize ? "var(--color-love-accent-dark)" : "var(--color-love-heading)",
+                        }}
                       >
                         {step.text}
                       </p>
@@ -293,19 +314,25 @@ export default function LoveLetter() {
                       </div>
                     )}
 
-                    <div className="flex items-center gap-2">
-                      {t.steps.map((_, i) => (
-                        <span
-                          key={i}
-                          className="h-1.5 w-1.5 rounded-full transition-colors"
-                          style={{
-                            background:
-                              i === stage ? "var(--color-love-accent)" : "var(--color-love-muted)",
-                            opacity: i === stage ? 1 : 0.4,
-                          }}
-                        />
-                      ))}
-                    </div>
+                    {(() => {
+                      const growthStages = ["🌱", "🌿", "🌷", "🌸"];
+                      const fraction = t.steps.length > 1 ? stage / (t.steps.length - 1) : 1;
+                      const growthIndex = Math.min(
+                        growthStages.length - 1,
+                        Math.floor(fraction * growthStages.length),
+                      );
+                      return (
+                        <motion.span
+                          key={growthIndex}
+                          initial={{ scale: 0.6, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ duration: 0.4 }}
+                          style={{ fontSize: 22 + fraction * 20, display: "inline-block" }}
+                        >
+                          {growthStages[growthIndex]}
+                        </motion.span>
+                      );
+                    })()}
 
                     <button
                       onClick={next}
@@ -331,6 +358,13 @@ export default function LoveLetter() {
                 transition={{ duration: 0.6 }}
                 className="relative flex flex-col items-center gap-7 text-center"
               >
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  className="text-6xl"
+                >
+                  🌸
+                </motion.div>
                 <motion.p
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
