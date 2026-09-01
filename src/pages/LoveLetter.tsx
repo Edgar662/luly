@@ -3,12 +3,16 @@ import { AnimatePresence, motion } from "framer-motion";
 
 type Lang = "en" | "pt";
 
+type Step =
+  | { type: "text"; text: string }
+  | { type: "card"; icon: string; title: string; lines: string[] };
+
 const CONTENT: Record<
   Lang,
   {
     openLabel: string;
     openButton: string;
-    paragraphs: string[];
+    steps: Step[];
     continueMid: string;
     continueLast: string;
     endTitle: string;
@@ -19,13 +23,40 @@ const CONTENT: Record<
   en: {
     openLabel: "a little letter for you",
     openButton: "open 🌸",
-    paragraphs: [
-      "Hey, Lily 🌸",
-      "I know today hasn't been the easiest. That everything feels a little heavier, a little more sensitive, a little harder to carry.",
-      "But I want you to know something: you don't have to be strong right now. You can rest, you can complain, you can be in a mood — I'm still right here, exactly the same.",
-      "Because I don't love you only on the easy days. I love you completely — PMS, zero patience, crying over nothing, all of it.",
-      "And today, officially, I'm getting my period too 🌸 (we're going through this together, I promise).",
-      "Go lie down, eat some chocolate, watch that dumb show — and call me if you need me, I'm right here.",
+    steps: [
+      { type: "text", text: "Hey, Lily 🌸" },
+      {
+        type: "text",
+        text: "I know today hasn't been the easiest. That everything feels a little heavier, a little more sensitive, a little harder to carry.",
+      },
+      {
+        type: "text",
+        text: "But I want you to know something: you don't have to be strong right now. You can rest, you can complain, you can be in a mood — I'm still right here, exactly the same.",
+      },
+      {
+        type: "card",
+        icon: "🫂",
+        title: "Emergency hug",
+        lines: ["Please hold for as long as necessary."],
+      },
+      {
+        type: "text",
+        text: "Because I don't love you only on the easy days. I love you completely — PMS, zero patience, crying over nothing, all of it.",
+      },
+      {
+        type: "card",
+        icon: "📝",
+        title: "Doctor's prescription",
+        lines: ["1 chocolate bar", "1 cozy blanket", "0 responsibilities", "Unlimited rest"],
+      },
+      {
+        type: "text",
+        text: "And today, officially, I'm getting my period too 🌸 (we're going through this together, I promise).",
+      },
+      {
+        type: "text",
+        text: "Go lie down, watch that dumb show — and call me if you need me, I'm right here.",
+      },
     ],
     continueMid: "continue →",
     continueLast: "continue 🌸",
@@ -36,13 +67,40 @@ const CONTENT: Record<
   pt: {
     openLabel: "uma cartinha pra você",
     openButton: "abrir 🌸",
-    paragraphs: [
-      "Oi, Lily 🌸",
-      "Eu sei que hoje não tá sendo o dia mais fácil. Que tudo parece mais pesado, mais sensível, mais difícil de aguentar.",
-      "Mas eu quero que você saiba uma coisa: você não precisa ser forte agora. Pode descansar, pode reclamar, pode ficar de mau humor — eu continuo aqui do mesmo jeitinho.",
-      "Porque eu não te amo só nos dias fáceis. Eu te amo inteira — com TPM, sem paciência, chorando por besteira, tudo.",
-      "E hoje, oficialmente, eu também vou entrar na sua flor 🌸 (a gente atravessa isso junto, eu prometo).",
-      "Vai lá, deita, come um chocolate, assiste aquela série boba — e me chama se precisar de mim, tô aqui.",
+    steps: [
+      { type: "text", text: "Oi, Lily 🌸" },
+      {
+        type: "text",
+        text: "Eu sei que hoje não tá sendo o dia mais fácil. Que tudo parece mais pesado, mais sensível, mais difícil de aguentar.",
+      },
+      {
+        type: "text",
+        text: "Mas eu quero que você saiba uma coisa: você não precisa ser forte agora. Pode descansar, pode reclamar, pode ficar de mau humor — eu continuo aqui do mesmo jeitinho.",
+      },
+      {
+        type: "card",
+        icon: "🫂",
+        title: "Abraço de emergência",
+        lines: ["Segure pelo tempo que for necessário."],
+      },
+      {
+        type: "text",
+        text: "Porque eu não te amo só nos dias fáceis. Eu te amo inteira — com TPM, sem paciência, chorando por besteira, tudo.",
+      },
+      {
+        type: "card",
+        icon: "📝",
+        title: "Receita médica",
+        lines: ["1 barra de chocolate", "1 cobertor quentinho", "0 responsabilidades", "Descanso ilimitado"],
+      },
+      {
+        type: "text",
+        text: "E hoje, oficialmente, eu também vou entrar na sua flor 🌸 (a gente atravessa isso junto, eu prometo).",
+      },
+      {
+        type: "text",
+        text: "Vai lá, deita, assiste aquela série boba — e me chama se precisar de mim, tô aqui.",
+      },
     ],
     continueMid: "continuar →",
     continueLast: "continuar 🌸",
@@ -99,7 +157,7 @@ export default function LoveLetter() {
   const openEnvelope = () => setStage(0);
   const next = () => {
     if (typeof stage !== "number") return;
-    if (stage + 1 >= t.paragraphs.length) {
+    if (stage + 1 >= t.steps.length) {
       setStage("end");
     } else {
       setStage(stage + 1);
@@ -186,50 +244,84 @@ export default function LoveLetter() {
               </motion.div>
             )}
 
-            {typeof stage === "number" && (
-              <motion.div
-                key={`${lang}-${stage}`}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.45 }}
-                className="relative flex flex-col items-center gap-9 text-center"
-              >
-                <p
-                  className="text-2xl sm:text-[1.75rem] leading-snug"
-                  style={{ fontFamily: "var(--font-cute-hand)", color: "var(--color-love-heading)" }}
-                >
-                  {t.paragraphs[stage]}
-                </p>
+            {typeof stage === "number" &&
+              (() => {
+                const step = t.steps[stage];
+                return (
+                  <motion.div
+                    key={`${lang}-${stage}`}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -16 }}
+                    transition={{ duration: 0.45 }}
+                    className="relative flex flex-col items-center gap-9 text-center"
+                  >
+                    {step.type === "text" ? (
+                      <p
+                        className="text-2xl sm:text-[1.75rem] leading-snug"
+                        style={{ fontFamily: "var(--font-cute-hand)", color: "var(--color-love-heading)" }}
+                      >
+                        {step.text}
+                      </p>
+                    ) : (
+                      <div className="flex flex-col items-center gap-4">
+                        <span className="text-5xl">{step.icon}</span>
+                        <p
+                          className="text-xs uppercase tracking-[0.2em]"
+                          style={{
+                            fontFamily: "var(--font-cute-body)",
+                            fontWeight: 700,
+                            color: "var(--color-love-accent-dark)",
+                          }}
+                        >
+                          {step.title}
+                        </p>
+                        <div
+                          className="rounded-2xl border-2 border-dashed px-6 py-4 flex flex-col gap-1.5"
+                          style={{ borderColor: "var(--color-love-muted)", background: "var(--color-love-blush)" }}
+                        >
+                          {step.lines.map((line, i) => (
+                            <p
+                              key={i}
+                              className="text-xl text-left"
+                              style={{ fontFamily: "var(--font-cute-hand)", color: "var(--color-love-heading)" }}
+                            >
+                              {line}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
-                <div className="flex items-center gap-2">
-                  {t.paragraphs.map((_, i) => (
-                    <span
-                      key={i}
-                      className="h-1.5 w-1.5 rounded-full transition-colors"
+                    <div className="flex items-center gap-2">
+                      {t.steps.map((_, i) => (
+                        <span
+                          key={i}
+                          className="h-1.5 w-1.5 rounded-full transition-colors"
+                          style={{
+                            background:
+                              i === stage ? "var(--color-love-accent)" : "var(--color-love-muted)",
+                            opacity: i === stage ? 1 : 0.4,
+                          }}
+                        />
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={next}
+                      className="rounded-full px-7 py-2.5 text-white text-sm tracking-wide shadow-md transition-transform hover:scale-105 active:scale-95"
                       style={{
-                        background:
-                          i === stage ? "var(--color-love-accent)" : "var(--color-love-muted)",
-                        opacity: i === stage ? 1 : 0.4,
+                        fontFamily: "var(--font-cute-body)",
+                        fontWeight: 600,
+                        background: "var(--color-love-accent)",
+                        boxShadow: "0 10px 25px -8px var(--color-love-accent)",
                       }}
-                    />
-                  ))}
-                </div>
-
-                <button
-                  onClick={next}
-                  className="rounded-full px-7 py-2.5 text-white text-sm tracking-wide shadow-md transition-transform hover:scale-105 active:scale-95"
-                  style={{
-                    fontFamily: "var(--font-cute-body)",
-                    fontWeight: 600,
-                    background: "var(--color-love-accent)",
-                    boxShadow: "0 10px 25px -8px var(--color-love-accent)",
-                  }}
-                >
-                  {stage + 1 >= t.paragraphs.length ? t.continueLast : t.continueMid}
-                </button>
-              </motion.div>
-            )}
+                    >
+                      {stage + 1 >= t.steps.length ? t.continueLast : t.continueMid}
+                    </button>
+                  </motion.div>
+                );
+              })()}
 
             {stage === "end" && (
               <motion.div
