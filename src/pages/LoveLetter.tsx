@@ -31,7 +31,7 @@ const CONTENT: Record<
       },
       {
         type: "text",
-        text: "But I want you to know something: you don't have to be strong right now. You can rest, you can complain, you can be in a mood — I'm still right here, exactly the same.",
+        text: "But I want you to know something: you don't have to be strong right now. You can rest, you can complain, you can be in a mood, and I'm still right here, exactly the same.",
       },
       {
         type: "card",
@@ -41,7 +41,7 @@ const CONTENT: Record<
       },
       {
         type: "text",
-        text: "Because I don't love you only on the easy days. I love you completely — PMS, zero patience, crying over nothing, all of it.",
+        text: "Because I don't love you only on the easy days. I love you completely, with the PMS, the zero patience, the crying over nothing, all of it.",
       },
       {
         type: "card",
@@ -55,7 +55,7 @@ const CONTENT: Record<
       },
       {
         type: "text",
-        text: "Go lie down, watch that dumb show — and call me if you need me, I'm right here.",
+        text: "Go lie down and imagine you're in my arms. Call me if you need me, I'm right here.",
       },
       { type: "text", text: "If I were there right now... 🫶" },
       { type: "text", text: "I'd probably just sit next to you." },
@@ -68,7 +68,7 @@ const CONTENT: Record<
     continueMid: "continue →",
     continueLast: "continue 🌸",
     endTitle: "I love you so much, Lily 🌸",
-    endSignature: "— from your love",
+    endSignature: "from your love",
     restart: "read again",
   },
   pt: {
@@ -82,7 +82,7 @@ const CONTENT: Record<
       },
       {
         type: "text",
-        text: "Mas eu quero que você saiba uma coisa: você não precisa ser forte agora. Pode descansar, pode reclamar, pode ficar de mau humor — eu continuo aqui do mesmo jeitinho.",
+        text: "Mas eu quero que você saiba uma coisa: você não precisa ser forte agora. Pode descansar, pode reclamar, pode ficar de mau humor, e eu continuo aqui do mesmo jeitinho.",
       },
       {
         type: "card",
@@ -92,7 +92,7 @@ const CONTENT: Record<
       },
       {
         type: "text",
-        text: "Porque eu não te amo só nos dias fáceis. Eu te amo inteira — com TPM, sem paciência, chorando por besteira, tudo.",
+        text: "Porque eu não te amo só nos dias fáceis. Eu te amo inteira, com TPM, sem paciência, chorando por besteira, tudo.",
       },
       {
         type: "card",
@@ -106,7 +106,7 @@ const CONTENT: Record<
       },
       {
         type: "text",
-        text: "Vai lá, deita, assiste aquela série boba — e me chama se precisar de mim, tô aqui.",
+        text: "Vai lá, deita, e imagina que você tá nos meus braços. Me chama se precisar de mim, tô aqui.",
       },
       { type: "text", text: "Se eu estivesse aí agora... 🫶" },
       { type: "text", text: "Eu provavelmente sentaria do seu lado." },
@@ -119,7 +119,7 @@ const CONTENT: Record<
     continueMid: "continuar →",
     continueLast: "continuar 🌸",
     endTitle: "Te amo muito, Lily 🌸",
-    endSignature: "— do seu amor",
+    endSignature: "do seu amor",
     restart: "ler de novo",
   },
 };
