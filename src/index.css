@@ -92,16 +92,6 @@ body {
 
 /* --- Love letter page --- */
 @theme {
-  --color-love-blush: #fff3f6;
-  --color-love-peach: #fde8ee;
-  --color-love-lilac: #f4e6f6;
-  --color-love-card: #fffbfc;
-  --color-love-accent: #e0577f;
-  --color-love-accent-dark: #c33d68;
-  --color-love-heading: #7d3352;
-  --color-love-body: #a45c78;
-  --color-love-muted: #c98ba3;
-
   --font-cute-hand: "Caveat", cursive;
   --font-cute-body: "Quicksand", sans-serif;
   --font-cute-signature: "Playfair Display", serif;
